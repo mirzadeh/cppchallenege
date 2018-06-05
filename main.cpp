@@ -1,79 +1,26 @@
 #include <iostream>
-#include <fstream>
-#include <array>
-#include <string>
-#include <unordered_map>
+
 #include "matrix2d.h"
+#include "utilities.h"
 
 using namespace std;
 using namespace cppchallenge;
 
-template <typename T>
-ostream& operator<< (ostream& os, const vector<T>& a){
-    for (auto& el:a) os << el << " ";
-    os << "\n";
-
-    return os;
-}
-
 int main()
 {    
+    TestData<double> data;
     ifstream file("../../test2.txt");
-    string line;
+    data.parse(file);
 
-    struct {
-        unordered_map<string, Matrix2D<double>> mat;
-        unordered_map<string, vector<double>> vec;
-    } testdata;
+    auto& A = data.mat["A"];
+    auto& B = data.mat["B"];
+    auto& X = data.vec["X"];
 
-    while(getline(file, line)) {
-        if (line[0] == '[') {
-            size_t end = line.find(']');
-            string token = line.substr(1, end-1);
-
-            if (token == "Matrix") {
-                getline(file, line);
-                istringstream iss(line);
-                string name;
-                size_t M, N;
-
-                iss >> name >> M >> N;
-                testdata.mat.insert(make_pair(name, Matrix2D<double>(M,N)));
-                auto& mat = testdata.mat[name];
-
-                for (size_t r = 0; r < M; r++) {
-                    getline(file, line);
-                    istringstream iss(line);
-
-                    copy(istream_iterator<double>(iss), istream_iterator<double>(),
-                         mat.begin_row(r));
-                }
-
-            } else if (token == "Vector") {
-                getline(file, line);
-                istringstream iss(line);
-                string name;
-                size_t M;
-
-                iss >> name >> M;
-                testdata.vec.insert(make_pair(name, vector<double>(M)));
-
-                getline(file, line);
-                iss.clear();
-                iss.str(line);
-                copy(istream_iterator<double>(iss), istream_iterator<double>(),
-                     begin(testdata.vec[name]));
-
-            }
-        }
-    }
-
-    cout << testdata.vec["X"] << endl;
-    cout << testdata.mat["A"] + testdata.mat["B"] << "\n";
-    cout << testdata.mat["A"] - testdata.mat["B"] << "\n";
-    cout << testdata.mat["A"] * testdata.mat["B"] << "\n";
-    cout << testdata.mat["A"].transpose() << "\n";
-    cout << testdata.mat["A"]*testdata.vec["X"] << "\n";
+    cout << boolalpha << almost_equal(A*X, data.vec["AX"]) << "\n";
+    cout << boolalpha << almost_equal(A+B, data.mat["A+B"]) << "\n";
+    cout << boolalpha << almost_equal(A-B, data.mat["A-B"]) << "\n";
+    cout << boolalpha << almost_equal(A*B, data.mat["A*B"]) << "\n";
+    cout << boolalpha << almost_equal(A.transpose(), data.mat["A^T"]) << "\n";
 
     return 0;
 }

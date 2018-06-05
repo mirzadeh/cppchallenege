@@ -1,0 +1,23 @@
+# This is an exmple inout test file
+# Rules:
+# 1) Each non-empty line should either:
+#    a) start with a token (enclosed between square brackets []) or
+#    b) be a comment (start with '#')
+# 2) Only two tokens are possible; 'Matrix' or 'Vector'
+#    a) The first line after each token is a header and must define its name and size(s)
+#    b) The lines after the header define the data
+# 3) Any number of tokens can be defined
+# 4) The test code assumes the following definitions to be present
+#    a) Matrices: A, B, A+B, A-B, A*B, A^T,
+#    b) Vectors: X, AX
+
+# X = [1.5, -1.0] 
+[Vector]
+X 2
+1.5 -1.0
+
+# A = [[3.4, 5.5], [1.2, 3.3]]
+[Matrix]
+A 2 2
+3.4 5.5
+1.2 3.3

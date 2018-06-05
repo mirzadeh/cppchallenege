@@ -1,11 +1,13 @@
 function generate
 rng(0);
 format long;
-A = rand(5,5);
-B = rand(5,5);
-X = rand(5,1);
 
-filename = 'test2.txt';
+s = 50;
+A = rand(s, s);
+B = rand(s, s);
+X = rand(s, 1);
+
+filename = strcat(num2str(s), 'x', num2str(s), '.txt');
 file = fopen(filename, 'w');
 write_matrix(filename, A, 'A');
 write_matrix(filename, B, 'B');
@@ -23,7 +25,7 @@ function write_matrix(filename, M, name)
     file = fopen(filename, 'a');
     fprintf(file, '[Matrix]\n');
     fprintf(file, '%s %d %d\n', name, size(M));
-    dlmwrite(filename, M, 'delimiter', ' ', '-append', 'precision','%.8f');
+    dlmwrite(filename, M, 'delimiter', ' ', '-append', 'precision','%.10f');
     fprintf(file, '\n');
     fclose(file);
 end
@@ -32,7 +34,7 @@ function write_vector(filename, X, name)
     file = fopen(filename, 'a');
     fprintf(file, '[Vector]\n');
     fprintf(file, '%s %d\n', name, length(X));
-    fprintf(file, '%.8f ', X);
-    fprintf(file, '\n\n');
+    dlmwrite(filename, X', 'delimiter', ' ', '-append', 'precision','%.10f');
+    fprintf(file, '\n');
     fclose(file);
 end

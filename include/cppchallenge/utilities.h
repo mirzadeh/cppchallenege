@@ -239,12 +239,12 @@ bool runtest(const Test& test) {
         failed = true;
 
     } catch (const std::exception& e) {
-        cout << "aborted!\n";
+        cout << "ABORTED!\n";
         cout << "[Exception] occurred: " << e.what() << endl;
         failed = true;
 
     } catch (...) {
-        cout << "aborted!\n";
+        cout << "ABORTED!\n";
         cout << "[Unknown] exception occurred." << endl;
         failed = true;
     }

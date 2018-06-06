@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/mirzadeh/cppchallenge.svg?branch=master)](https://travis-ci.org/mirzadeh/cppchallenge)
 # cppchallenge
 An implementation of a simple 2D Matrix library with testing.
 

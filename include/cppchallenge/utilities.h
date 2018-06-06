@@ -129,7 +129,6 @@ bool compare(const vector<T>& lhs, const vector<T>& rhs, double tol = 1e-6) {
  *
  * @return 'false' if |lhs - rhs| < tol. 'true' otherwise
  */
-
 template <typename T>
 bool compare(const Matrix2D<T>& lhs, const Matrix2D<T>& rhs, double tol = 1e-6) {
     if (lhs.size() != rhs.size()) return true;
@@ -180,7 +179,6 @@ public:
 
         // parse the input line by line.
         string line;
-        int lineno = 0;
         while(getline(file, line)) {
             if (line[0] == '#' || line.empty()) {
                 continue;
@@ -191,11 +189,10 @@ public:
                 if (token == "Matrix") {
                     string name;
                     size_t rows, cols;
-
                     file >> name >> rows >> cols;
+
                     mat.insert(make_pair(name, Matrix2D<T>(rows, cols)));
                     file >> mat[name];
-                    lineno += rows;
 
                 } else if (token == "Vector") {
                     string name;

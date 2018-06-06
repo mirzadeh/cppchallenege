@@ -103,9 +103,9 @@ vector<T> operator- (const vector<T>& lhs, const vector<T>& rhs) {
 /**
  * \brief Compares two vectors for (almost) equality.
  *
- * @param lhs: The 'lhs' to equlity
- * @param rhs: The 'rhs' to equlity
- * @param tol: The tolerance used for comparison.
+ * @param lhs
+ * @param rhs
+ * @param tol The tolerance used for comparison.
  *
  * @return 'false' if |lhs - rhs| < tol. 'true' otherwise
  */
@@ -123,9 +123,9 @@ bool compare(const vector<T>& lhs, const vector<T>& rhs, double tol = 1e-6) {
 /**
  * @brief Compares two matrices for (almost) equality.
  *
- * @param lhs: The 'lhs' to equlity
- * @param rhs: The 'rhs' to equlity
- * @param tol: The tolerance used for comparison.
+ * @param lhs
+ * @param rhs
+ * @param tol The tolerance used for comparison.
  *
  * @return 'false' if |lhs - rhs| < tol. 'true' otherwise
  */
@@ -156,7 +156,7 @@ public:
 
     /**
      * @brief Parse an input data file
-     * @note Each non-empty line inthe file must either declare a token or be a comment.
+     * @note Each non-empty line in the file must either declare a token or be a comment.
                 - A token can either be 'Matrix' or 'Vector' and must be placed in a bracket []
                 - The immediate line after 'Matrix' or 'Vector' constitutes the header and must
                   define the 'name' and 'sizes'. Lines after the header, define the data, e.g.:
@@ -223,7 +223,7 @@ struct Test {
 /**
  * @brief runtest Runs a test in a try-catch block and captures return values
  * @param test The current test to run
- * @return flase if the test passes, true if it fales
+ * @return false if the test passes, true if it false
  */
 bool runtest(const Test& test) {
     using std::cout;
@@ -237,17 +237,17 @@ bool runtest(const Test& test) {
 
     } catch (const MatrixException& e) {
         cout << "ABORTED\n";
-        cout << "[MatrixException] occured: " << e.what() << endl;
+        cout << "[MatrixException] occurred: " << e.what() << endl;
         failed = true;
 
     } catch (const std::exception& e) {
         cout << "aborted!\n";
-        cout << "[Exception] occured: " << e.what() << endl;
+        cout << "[Exception] occurred: " << e.what() << endl;
         failed = true;
 
     } catch (...) {
         cout << "aborted!\n";
-        cout << "[Unknown] exception occured." << endl;
+        cout << "[Unknown] exception occurred." << endl;
         failed = true;
     }
 

@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
     tests.push_back({"Matrix transposition",
                      [&] { return compare(B.transpose(), data.mat["B^T"]); }});
 
-    // testing various forms of associtivity and distributivity
+    // testing various forms of associativity and distributivity
     tests.push_back({"A^T^T == A", [&] { return compare(A.transpose().transpose(), A); }});
     tests.push_back({"(A*B)^T == B^T*A^T",
                      [&] { return compare((A*B).transpose(), B.transpose()*A.transpose()); }});

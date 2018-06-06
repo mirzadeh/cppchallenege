@@ -155,7 +155,7 @@ public:
         if (cols_ != rhs.rows_) {
             ostringstream oss;
             oss << "Dimension mismatch. Number of columns of the first matrix (" << cols_ << ") "
-                   "should equal number of rows (" << rhs.rows_ << ") in the seconnd matrix.\n";
+                   "should equal number of rows (" << rhs.rows_ << ") in the second matrix.\n";
 
             throw MatrixException(oss.str());
         }
@@ -216,7 +216,7 @@ public:
      * @brief operator () 2D indexing operator (read/write)
      * @param i The 'row' index
      * @param j The 'column' index
-     * @return referrence to value at (row, col)
+     * @return reference to value at (row, col)
      */
     inline
     const T& operator() (size_t i, size_t j) const {
@@ -227,7 +227,7 @@ public:
      * @brief operator () 2D indexing operator (read-only)
      * @param i The 'row' index
      * @param j The 'column' index
-     * @return const-referrence to value at (row, col)
+     * @return const-reference to value at (row, col)
      */
     inline
     T& operator() (size_t i, size_t j) {

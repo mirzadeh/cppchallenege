@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <fstream>
 #include <iostream>
+#include <functional>
 
 namespace cppchallenge {
 
@@ -77,7 +78,7 @@ vector<T> operator+ (const vector<T>& lhs, const vector<T>& rhs) {
     }
 
     vector<T> result(lhs.size());
-    std::transform(lhs.begin(), lhs.end(), rhs.begin(), result.begin(), std::plus<T>());
+    for (size_t i = 0; i < result.size(); i++) result[i] = lhs[i] + rhs[i];
 
     return result;
 }
@@ -95,7 +96,7 @@ vector<T> operator- (const vector<T>& lhs, const vector<T>& rhs) {
     }
 
     vector<T> result(lhs.size());
-    std::transform(lhs.begin(), lhs.end(), rhs.begin(), result.begin(), std::minus<T>());
+    for (size_t i = 0; i < result.size(); i++) result[i] = lhs[i] - rhs[i];
 
     return result;
 }

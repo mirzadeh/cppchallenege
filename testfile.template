@@ -7,9 +7,7 @@
 #    a) The first line after each token is a header and must define its name and size(s)
 #    b) The lines after the header define the data
 # 3) Any number of tokens can be defined
-# 4) The test code assumes the following definitions to be present
-#    a) Matrices: A, B, A+B, A-B, A*B, A^T,
-#    b) Vectors: X, AX
+# 4) The test code assumes certain names are defined. This is NOT enforced.
 
 # X = [1.5, -1.0] 
 [Vector]

@@ -197,8 +197,8 @@ public:
                 } else if (token == "Vector") {
                     string name;
                     size_t cols;
-
                     file >> name >> cols;
+                    
                     vec.insert(make_pair(name, vector<T>(cols)));
                     file >> vec[name];
 

@@ -9,9 +9,9 @@ Simply create a build directory and run `cmake`, e.g.:
 > cd build && cmake .. && make
 ```
 
-To run all tests, run `ctest` from the build directory:
+To run all tests, run `make test` from the build directory:
 ``` 
-> cd build && ctest 
+> cd build && make test 
 ```
 
 ## Structure of testfiles

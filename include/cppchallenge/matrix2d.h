@@ -2,9 +2,7 @@
 
 #include <vector>
 #include <exception>
-#include <algorithm>
 #include <sstream>
-#include <memory>
 
 namespace cppchallenge {
 
@@ -66,8 +64,10 @@ class Matrix2D {
             throw MatrixException(oss.str());
         }
 
-        std::transform(begin(data_), end(data_), begin(rhs.data_), begin(data_),
-                       std::plus<T>());
+        for (size_t i = 0; i < data_.size(); i++) {
+            data_[i] += rhs.data_[i];
+        }
+
         return *this;
     }
 
@@ -79,8 +79,10 @@ class Matrix2D {
             throw MatrixException(oss.str());
         }
 
-        std::transform(begin(data_), end(data_), begin(rhs.data_), begin(data_),
-                       std::minus<T>());
+        for (size_t i = 0; i < data_.size(); i++) {
+            data_[i] -= rhs.data_[i];
+        }
+
         return *this;
     }    
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrix2d.h"
+#include <cppchallenge/matrix2d.h>
 #include <cmath>
 #include <unordered_map>
 #include <fstream>
@@ -10,7 +10,9 @@ namespace cppchallenge {
 
 using std::unordered_map;
 using std::string;
-using std::ostream, std::istream, std::ifstream;
+using std::ostream;
+using std::istream;
+using std::ifstream;
 
 /**
  * @brief ostream overload for vector<T>
@@ -63,6 +65,42 @@ istream& operator>> (istream& is, Matrix2D<T>& mat) {
 }
 
 /**
+ * @brief operator + Addition overload for vectors
+ * @param lhs
+ * @param rhs
+ * @return result by value
+ */
+template <typename T>
+vector<T> operator+ (const vector<T>& lhs, const vector<T>& rhs) {
+    if (lhs.size() != rhs.size()) {
+        throw std::invalid_argument("Vectors must have equal sizes to add.");
+    }
+
+    vector<T> result(lhs.size());
+    std::transform(lhs.begin(), lhs.end(), rhs.begin(), result.begin(), std::plus<T>());
+
+    return result;
+}
+
+/**
+ * @brief operator - Subtraction overload for vectors
+ * @param lhs
+ * @param rhs
+ * @return result by value
+ */
+template <typename T>
+vector<T> operator- (const vector<T>& lhs, const vector<T>& rhs) {
+    if (lhs.size() != rhs.size()) {
+        throw std::invalid_argument("Vectors must have equal sizes to subtract.");
+    }
+
+    vector<T> result(lhs.size());
+    std::transform(lhs.begin(), lhs.end(), rhs.begin(), result.begin(), std::minus<T>());
+
+    return result;
+}
+
+/**
  * \brief Compares two vectors for (almost) equality.
  *
  * @param lhs: The 'lhs' to equlity
@@ -97,8 +135,9 @@ bool compare(const Matrix2D<T>& lhs, const Matrix2D<T>& rhs, double tol = 1e-6) 
     if (lhs.size() != rhs.size()) return true;
 
     for (std::size_t i = 0; i < lhs.rows(); i++) {
-        for (std::size_t j = 0; j < lhs.cols(); j++)
-        if (std::fabs(lhs(i, j) - rhs(i, j)) > tol) return true;
+        for (std::size_t j = 0; j < lhs.cols(); j++) {
+            if (std::fabs(lhs(i, j) - rhs(i, j)) > tol) return true;
+        }
     }
 
     return false;
@@ -106,6 +145,8 @@ bool compare(const Matrix2D<T>& lhs, const Matrix2D<T>& rhs, double tol = 1e-6) 
 
 /**
  * @brief The TestData class: A simple helper class to hold the test data information
+ * @property mat (name, Matrix2D) collection of all matrices
+ * @property vec (name, Vector) collection of all vectors
  */
 template <typename T>
 class TestData{

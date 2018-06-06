@@ -214,4 +214,43 @@ public:
         }
     }
 };
+
+struct Test {
+    string name;
+    std::function<bool()> run;
+};
+
+/**
+ * @brief runtest Runs a test in a try-catch block and captures return values
+ * @param test The current test to run
+ * @return flase if the test passes, true if it fales
+ */
+bool runtest(const Test& test) {
+    using std::cout;
+    using std::endl;
+
+    bool failed = false;
+    cout << "Running test " << test.name << " ... ";
+    try {
+        failed = test.run();
+        cout << (failed ? "FAILED" : "passed") << endl;
+
+    } catch (const MatrixException& e) {
+        cout << "ABORTED\n";
+        cout << "[MatrixException] occured: " << e.what() << endl;
+        failed = true;
+
+    } catch (const std::exception& e) {
+        cout << "aborted!\n";
+        cout << "[Exception] occured: " << e.what() << endl;
+        failed = true;
+
+    } catch (...) {
+        cout << "aborted!\n";
+        cout << "[Unknown] exception occured." << endl;
+        failed = true;
+    }
+
+    return failed;
+}
 }

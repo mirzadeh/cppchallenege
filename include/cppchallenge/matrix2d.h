@@ -6,6 +6,7 @@
 
 namespace cppchallenge {
 
+using std::ostringstream;
 using std::vector;
 using std::size_t;
 
@@ -46,9 +47,9 @@ class Matrix2D {
     inline
     size_t index(size_t i, size_t j) const {
         if (i >= rows_ || j >= cols_) {
-            std::ostringstream oss;
-            oss << "Index (" << i << ", " << j << ") is out of bound.\n"
-                   "Matrix size = (" << rows_ << ", " << cols_ << ").\n";
+            ostringstream oss;
+            oss << "Index (" << i << ", " << j << ") is out of bound. Matrix size = ("
+                << rows_ << ", " << cols_ << ").\n";
 
             throw MatrixException(oss.str());
         }
@@ -58,8 +59,9 @@ class Matrix2D {
 
     Matrix2D& operator+= (const Matrix2D<T>& rhs) {
         if (this->size() != rhs.size()) {
-            std::ostringstream oss;
-            oss << "Dimension mismatch. Both matrices must have the same size.\n";
+            ostringstream oss;
+            oss << "Dimension mismatch. Cannot add matrix of size (" << rows_ << ", " << cols_
+                << ") to matrix of size (" << rhs.rows() << ", " << rhs.cols() << ")\n";
 
             throw MatrixException(oss.str());
         }
@@ -73,8 +75,9 @@ class Matrix2D {
 
     Matrix2D& operator-= (const Matrix2D<T>& rhs) {
         if (this->size() != rhs.size()) {
-            std::ostringstream oss;
-            oss << "Dimension mismatch. Matrices must have the same size.\n";
+            ostringstream oss;
+            oss << "Dimension mismatch. Cannot subtract matrix of size (" << rows_ << ", " << cols_
+                << ") from matrix of size (" << rhs.rows() << ", " << rhs.cols() << ")\n";
 
             throw MatrixException(oss.str());
         }
@@ -150,9 +153,9 @@ public:
      */
     Matrix2D<T> operator* (const Matrix2D<T>& rhs) const {
         if (cols_ != rhs.rows_) {
-            std::ostringstream oss;
-            oss << "Dimension mismatch. Number of columns of the first matrix should equal number\n"
-                   "of rows in the seconnd matrix.\n";
+            ostringstream oss;
+            oss << "Dimension mismatch. Number of columns of the first matrix (" << cols_ << ") "
+                   "should equal number of rows (" << rhs.rows_ << ") in the seconnd matrix.\n";
 
             throw MatrixException(oss.str());
         }
@@ -176,6 +179,13 @@ public:
      * @return result by value
      */
     vector<T> operator* (const vector<T>& rhs) const {
+        if (cols_ != rhs.size()) {
+            ostringstream oss;
+            oss << "Dimension mismatch. Cannot multiply matrix of size (" << rows_ << ", " << cols_
+                << ") with vector of size " << rhs.size() << "\n";
+
+            throw MatrixException(oss.str());
+        }
         vector<T> result(rows_, 0);
         for (size_t i = 0 ; i < rows_; i++) {
             for (size_t j = 0; j < cols_; j++) {
